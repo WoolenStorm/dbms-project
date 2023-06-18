@@ -5,9 +5,19 @@ import "./styles.css";
 
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import React, { useState, useEffect } from "react";
+import axios from "axios"
+
+const baseUrl = "http://localhost:8080/http://localhost:3001/"
 
 export default function App() {
-  const position = [48.856, 2.3522];
+
+  useEffect(() => {
+    getByMonths(1, 12)
+  })
+
+  const [position, setPosition] = useState([52.52, 13.405]);
+  // console.log(position)
   const markers = [
     {
       geocode: [48.86, 2.3522],
@@ -38,19 +48,45 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {markers.map((marker) => (
-          <Marker position={marker.geocode} icon={customIcon}>
-            <Popup>{marker.popUp}</Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-      <h2>Start editing to see some magic happen!</h2>
+      <div className="Container">
+        <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {markers.map((marker) => (
+            <Marker position={marker.geocode} icon={customIcon}>
+              <Popup>{marker.popUp}</Popup>
+            </Marker>
+          ))}
+        </MapContainer>
+      </div>
     </div>
   );
+}
+
+const getByMonths = async (startMonth, endMonth) => {
+
+  console.log(`getByMonths(${startMonth}, ${endMonth})`)
+  const url = baseUrl + "get-by-months"
+
+  if (!Number.isInteger(startMonth) || !Number.isInteger(endMonth))
+    throw console.error("Invalid arguments: two integers expected")
+  if (startMonth > 12 || startMonth < 1 || endMonth > 12 || endMonth < 1)
+    throw console.error("Arguments out of range: arguments have to be between 1 and 12")
+  if (startMonth > endMonth) {
+    const temp = startMonth
+    startMonth = endMonth
+    endMonth = temp
+  }
+  axios.get(url, {
+    params: {
+      startMonth: startMonth,
+      endMonth: endMonth
+    }
+  }).then((response) => {
+    console.log(response.status)
+  }).catch((error) => {
+    console.log(error)
+  })
 }

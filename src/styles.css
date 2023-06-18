@@ -1,6 +1,13 @@
 .App {
     font-family: sans-serif;
     text-align: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .Container {
+    display: flex;
+    justify-content: center;
   }
   
   * {
@@ -10,7 +17,9 @@
   }
   
   .leaflet-container {
-    width: 100%;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 80%;
     height: 60vh;
   }
   
