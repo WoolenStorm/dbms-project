@@ -2,13 +2,14 @@ import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 
-export default function Date() {
+export default function Date(props) {
+    const { placeholder } = props
     return (
-        <>
+        <div className="dateContainer">
             <ThemeProvider theme={theme}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
-                        label="von"
+                        label={placeholder}
                         format="DD.MM.YYYY"
                         sx={{
                             color: "red",
@@ -22,7 +23,7 @@ export default function Date() {
                     />
                 </LocalizationProvider>
             </ThemeProvider>
-        </>
+        </div>
     )
 }
 

@@ -104,14 +104,35 @@
     background: #9555FE;
   }
 
+.currencyInput {
+  height: 52px;
+  background-color: #2A263E;
+  border-color: #E7E4ED;
+  border-width: 1px;
+  color: #E7E4ED;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border-radius: 5px;
+  margin: 16px;
+  width: 275px
+}
 
-  /* .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
-    color: wheat;
-  }
+.currencyInput:hover {
+  border-color: #36FCC0;
+}
 
-  .css-rhmlg1-MuiTypography-root-MuiDayCalendar-weekDayLabel {
-    color: #E7E4ED
-  }
-   */
- 
+.currencyInput:focus, .currencyInput:active {
+  border-width: 2px;
+  border-color: #36FCC0;
+  outline: none;
+}
+
+h2 {
+  color: #E7E4ED;
+}
+
+.dateContainer {
+  margin: 16px;
+}
+
   
