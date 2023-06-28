@@ -18,19 +18,25 @@
   
   label {
     color: #E7E4ED;
+    font-size: large;
+    font-weight: 500;
   }
   
   .leaflet-container {
-    height: 60vh;
+    height: 70vh;
     border-radius: 16px;
   }
 
    .checkboxContainer {
     transition: box-shadow .3s;
-    display: inline-block;
+    display: flex;
+    width: 200px;
+    height: 40px;
     background-color: #3B3955;
     padding: 8px;
     border-radius: 8px;
+    justify-content: center;
+    position: relative;
   }
 
   .checkboxContainer input {
@@ -80,6 +86,13 @@
   .checkboxDiv {
     display: flex;
     justify-content: center;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 80%
   }
 
   .datePicker fieldset.MuiOutlinedInput-notchedOutline {
@@ -87,11 +100,11 @@
   }
 
   .leftColumn {
-    width: 50%;
+    width: 60%;
   }
 
   .rightColumn {
-    width: 50%;
+    width: 40%;
   }
 
   ::-moz-selection {

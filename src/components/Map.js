@@ -1,11 +1,15 @@
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
 import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
-const position = [52.52, 13.405]
+// https://github.com/IHKBerlin/IHKBerlin_Gewerbedaten/tree/595d12d0fdc3d94c613411d0742e7efb598ef853
+// and some postgres magic
+import coordinates from "../coordinates.json"
 
-export default function Map() {
+const position = [52.5, 13.405]
+
+export default function Map(geodata) {
 
     const DefaultIcon = L.icon({
         iconUrl: icon,
@@ -21,11 +25,18 @@ export default function Map() {
     L.Marker.prototype.options.icon = DefaultIcon;
     return (
         <div className="mapContainer">
-            <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+            <MapContainer center={position} zoom={11} scrollWheelZoom={false}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+                {
+                    // just to check if coordinates are fine
+                    coordinates.map((object) =>
+                        <Marker position={[object.latitude, object.longitude]}>
+                            <Popup>{`(${object.latitude}, ${object.longitude})`}</Popup>
+                        </Marker>
+                    )}
             </MapContainer>
         </div>
     )
