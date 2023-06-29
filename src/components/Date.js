@@ -2,8 +2,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 
-const Date = (props) => {
-    const { placeholder } = props
+const Date = ({ placeholder, value, setValue }) => {
+
     return (
         <div className="dateContainer">
             <ThemeProvider theme={theme}>
@@ -11,6 +11,8 @@ const Date = (props) => {
                     <DatePicker
                         label={placeholder}
                         format="DD.MM.YYYY"
+                        value={value}
+                        onChange={(newValue) => setValue(newValue)}
                         sx={{
                             color: "red",
                             'MuiInputLabel-root.Mui-focused': { color: "#36FCC0" },
