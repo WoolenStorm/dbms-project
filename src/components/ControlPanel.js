@@ -1,29 +1,24 @@
 import CurrencyInput from "react-currency-input-field";
 import Date from "./Date"
 import Checkbox from "./Checkbox";
-import { useState } from "react";
 
-const ControlPanel = () => {
 
-    const [isChecked, setChecked] = useState({
-        lastenfahrrad: false,
-        sonstiges: false,
-        fahrrad: false,
-        herrenfahrrad: false,
-        kinderfahrrad: false,
-        mountainbike: false,
-        rennrad: false,
-        damenfahrrad: false
-    })
+const ControlPanel = ({
+    chosenBikes, setChosenBikes,
+    startDate, endDate,
+    setStartDate, setEndDate,
+    minDamage, maxDamage,
+    setMinDamage, setMaxDamage
+}) => {
 
     return (
         <div style={{ paddingLeft: 24 }}>
             <h2 style={{ marginLeft: 16 }}>Datum</h2>
 
             <div style={{ display: "flex", flexDirection: "row" }}>
-                <Date placeholder="von" />
+                <Date placeholder="von" value={startDate} setValue={setStartDate} />
                 <div style={{ width: 64 }} />
-                <Date placeholder="bis" />
+                <Date placeholder="bis" value={endDate} setValue={setEndDate} />
             </div>
 
             <h2 style={{ marginLeft: 16 }}>Schadenshöhe</h2>
@@ -32,19 +27,19 @@ const ControlPanel = () => {
                 <CurrencyInput
                     className="currencyInput"
                     placeholder="von"
-                    defaultValue={0}
+                    defaultValue={minDamage}
                     decimalsLimit={0}
                     prefix="€"
-                    onValueChange={(value, name) => console.log(value, name)}
+                    onValueChange={(value, _) => setMinDamage(value)}
                 />
                 <div style={{ width: 64 }} />
                 <CurrencyInput
                     className="currencyInput"
                     placeholder="bis"
-                    defaultValue={10000}
+                    defaultValue={maxDamage}
                     decimalsLimit={0}
                     prefix="€"
-                    onValueChange={(value, name) => console.log(value, name)}
+                    onValueChange={(value, _) => setMaxDamage(value)}
                 />
             </div>
 
@@ -52,68 +47,68 @@ const ControlPanel = () => {
             <div style={{ display: "flex", flexDirection: "row", padding: 16, marginLeft: 32 }}>
                 <Checkbox
                     label="Lastenfahrrad"
-                    isChecked={isChecked.lastenfahrrad}
+                    isChecked={chosenBikes.lastenfahrrad}
                     setChecked={() => {
-                        setChecked({ ...isChecked, ...{ lastenfahrrad: !isChecked.lastenfahrrad } })
+                        setChosenBikes({ ...chosenBikes, ...{ lastenfahrrad: !chosenBikes.lastenfahrrad } })
                     }}
                 />
                 <div style={{ width: 64 }} />
                 <Checkbox
                     label="Kinderfahrrad"
-                    isChecked={isChecked.kinderfahrrad}
+                    isChecked={chosenBikes.kinderfahrrad}
                     setChecked={() => {
-                        setChecked({ ...isChecked, ...{ kinderfahrrad: !isChecked.kinderfahrrad } })
+                        setChosenBikes({ ...chosenBikes, ...{ kinderfahrrad: !chosenBikes.kinderfahrrad } })
                     }}
                 />
             </div>
             <div style={{ display: "flex", flexDirection: "row", padding: 16, marginLeft: 32 }}>
                 <Checkbox
                     label="Damenfahrrad"
-                    isChecked={isChecked.damenfahrrad}
+                    isChecked={chosenBikes.damenfahrrad}
                     setChecked={() => {
-                        setChecked({ ...isChecked, ...{ damenfahrrad: !isChecked.damenfahrrad } })
+                        setChosenBikes({ ...chosenBikes, ...{ damenfahrrad: !chosenBikes.damenfahrrad } })
                     }}
                 />
                 <div style={{ width: 64 }} />
                 <Checkbox
                     label="Mountainbike"
-                    isChecked={isChecked.mountainbike}
+                    isChecked={chosenBikes.mountainbike}
                     setChecked={() => {
-                        setChecked({ ...isChecked, ...{ mountainbike: !isChecked.mountainbike } })
+                        setChosenBikes({ ...chosenBikes, ...{ mountainbike: !chosenBikes.mountainbike } })
                     }}
                 />
             </div>
             <div style={{ display: "flex", flexDirection: "row", padding: 16, marginLeft: 32 }}>
                 <Checkbox
                     label="Herrenfahrrad"
-                    isChecked={isChecked.herrenfahrrad}
+                    isChecked={chosenBikes.herrenfahrrad}
                     setChecked={() => {
-                        setChecked({ ...isChecked, ...{ herrenfahrrad: !isChecked.herrenfahrrad } })
+                        setChosenBikes({ ...chosenBikes, ...{ herrenfahrrad: !chosenBikes.herrenfahrrad } })
                     }}
                 />
                 <div style={{ width: 64 }} />
                 <Checkbox
                     label="Rennrad"
-                    isChecked={isChecked.rennrad}
+                    isChecked={chosenBikes.rennrad}
                     setChecked={() => {
-                        setChecked({ ...isChecked, ...{ rennrad: !isChecked.rennrad } })
+                        setChosenBikes({ ...chosenBikes, ...{ rennrad: !chosenBikes.rennrad } })
                     }}
                 />
             </div>
             <div style={{ display: "flex", flexDirection: "row", padding: 16, marginLeft: 32 }}>
                 <Checkbox
                     label="Fahrrad (?)"
-                    isChecked={isChecked.fahrrad}
+                    isChecked={chosenBikes.fahrrad}
                     setChecked={() => {
-                        setChecked({ ...isChecked, ...{ fahrrad: !isChecked.fahrrad } })
+                        setChosenBikes({ ...chosenBikes, ...{ fahrrad: !chosenBikes.fahrrad } })
                     }}
                 />
                 <div style={{ width: 64 }} />
                 <Checkbox
                     label="Sonstiges"
-                    isChecked={isChecked.sonstiges}
+                    isChecked={chosenBikes.sonstiges}
                     setChecked={() => {
-                        setChecked({ ...isChecked, ...{ sonstiges: !isChecked.sonstiges } })
+                        setChosenBikes({ ...chosenBikes, ...{ sonstiges: !chosenBikes.sonstiges } })
                     }}
                 />
             </div>
