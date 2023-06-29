@@ -32,11 +32,12 @@ export default function Map(geodata) {
                 />
                 {
                     // just to check if coordinates are fine
-                    coordinates.map((object) =>
-                        <Marker position={[object.latitude, object.longitude]}>
-                            <Popup>{`(${object.latitude}, ${object.longitude})`}</Popup>
-                        </Marker>
-                    )}
+                    // coordinates.map((object) =>
+                    //     <Marker position={[object.latitude, object.longitude]}>
+                    //         <Popup>{`(${object.latitude}, ${object.longitude})`}</Popup>
+                    //     </Marker>
+                    // )
+                }
             </MapContainer>
         </div>
     )
