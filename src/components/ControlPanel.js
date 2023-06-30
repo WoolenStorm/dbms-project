@@ -2,16 +2,19 @@ import CurrencyInput from "react-currency-input-field";
 import Date from "./Date"
 import Checkbox from "./Checkbox";
 
+// export const ControlContext = createContext()
 
 const ControlPanel = ({
     chosenBikes, setChosenBikes,
     startDate, endDate,
     setStartDate, setEndDate,
     minDamage, maxDamage,
-    setMinDamage, setMaxDamage
+    setMinDamage, setMaxDamage,
+    // updateMap
 }) => {
 
     return (
+        // <ControlContext.Provider value={updateMap}>
         <div style={{ paddingLeft: 24 }}>
             <h2 style={{ marginLeft: 16 }}>Datum</h2>
 
@@ -30,7 +33,10 @@ const ControlPanel = ({
                     defaultValue={minDamage}
                     decimalsLimit={0}
                     prefix="€"
-                    onValueChange={(value, _) => setMinDamage(value)}
+                    onValueChange={(value, _) => {
+                        setMinDamage(value)
+                        // updateMap()
+                    }}
                 />
                 <div style={{ width: 64 }} />
                 <CurrencyInput
@@ -39,7 +45,10 @@ const ControlPanel = ({
                     defaultValue={maxDamage}
                     decimalsLimit={0}
                     prefix="€"
-                    onValueChange={(value, _) => setMaxDamage(value)}
+                    onValueChange={(value, _) => {
+                        setMaxDamage(value)
+                        // updateMap()
+                    }}
                 />
             </div>
 
@@ -113,6 +122,7 @@ const ControlPanel = ({
                 />
             </div>
         </div>
+        // </ControlContext.Provider>
     )
 }
 

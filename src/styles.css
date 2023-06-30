@@ -148,4 +148,8 @@ h2 {
   margin: 16px;
 }
 
+.updateButton {
+  /* margin-left: 32px; */
+  width: 300px
+}
   
