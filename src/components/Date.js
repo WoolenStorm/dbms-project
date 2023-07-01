@@ -11,9 +11,7 @@ const Date = ({ placeholder, value, setValue }) => {
                         label={placeholder}
                         format="DD.MM.YYYY"
                         value={value}
-                        onChange={(newValue) => {
-                            setValue(newValue)
-                        }}
+                        onChange={(newValue) => setValue(newValue)}
                         sx={{
                             color: "red",
                             'MuiInputLabel-root.Mui-focused': { color: "#36FCC0" },
