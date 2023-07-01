@@ -1,8 +1,7 @@
 import CurrencyInput from "react-currency-input-field";
 import Date from "./Date"
 import Checkbox from "./Checkbox";
-
-// export const ControlContext = createContext()
+import { useEffect } from "react";
 
 const ControlPanel = ({
     chosenBikes, setChosenBikes,
@@ -10,11 +9,15 @@ const ControlPanel = ({
     setStartDate, setEndDate,
     minDamage, maxDamage,
     setMinDamage, setMaxDamage,
-    // updateMap
+    setTheftsToShow,
+    filterThefts
 }) => {
 
+    useEffect(() => {
+        setTheftsToShow(filterThefts(chosenBikes, startDate, endDate, minDamage, maxDamage))
+    }, [chosenBikes, startDate, endDate, minDamage, maxDamage, filterThefts, setTheftsToShow])
+
     return (
-        // <ControlContext.Provider value={updateMap}>
         <div style={{ paddingLeft: 24 }}>
             <h2 style={{ marginLeft: 16 }}>Datum</h2>
 
@@ -35,7 +38,6 @@ const ControlPanel = ({
                     prefix="€"
                     onValueChange={(value, _) => {
                         setMinDamage(value)
-                        // updateMap()
                     }}
                 />
                 <div style={{ width: 64 }} />
@@ -47,7 +49,6 @@ const ControlPanel = ({
                     prefix="€"
                     onValueChange={(value, _) => {
                         setMaxDamage(value)
-                        // updateMap()
                     }}
                 />
             </div>
@@ -122,7 +123,6 @@ const ControlPanel = ({
                 />
             </div>
         </div>
-        // </ControlContext.Provider>
     )
 }
 
