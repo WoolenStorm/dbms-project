@@ -1,8 +1,8 @@
 import "../styles.css"
 
-const Checkbox = ({ label, isChecked, setChecked }) => {
+const Checkbox = ({ label, isChecked, setChecked, disabled }) => {
     return (
-        <div className="checkboxContainer" onClick={() => setChecked()}>
+        <div className={disabled ? "disabled" : "checkboxContainer"} onClick={disabled ? () => { } : () => setChecked()}>
             <div className="checkboxDiv">
                 <span className={isChecked ? "checked" : "notChecked"}></span>
                 <label>{label}</label>

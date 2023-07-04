@@ -9,22 +9,28 @@ const ControlPanel = ({
     setStartDate, setEndDate,
     minDamage, maxDamage,
     setMinDamage, setMaxDamage,
-    setTheftsToShow,
-    filterThefts
+    setTheftsToShowMap,
+    filterTheftsMap,
+    setTheftsToShowPieChart,
+    filterTheftsPieChart,
+    enabled
 }) => {
 
     useEffect(() => {
-        setTheftsToShow(filterThefts(chosenBikes, startDate, endDate, minDamage, maxDamage))
-    }, [chosenBikes, startDate, endDate, minDamage, maxDamage, filterThefts, setTheftsToShow])
+        setTheftsToShowMap(filterTheftsMap(chosenBikes, startDate, endDate, minDamage, maxDamage))
+        setTheftsToShowPieChart(filterTheftsPieChart(chosenBikes, startDate, endDate, minDamage, maxDamage))
+    }, [chosenBikes, startDate, endDate, minDamage, maxDamage,
+        filterTheftsMap, setTheftsToShowMap, filterTheftsPieChart, setTheftsToShowPieChart]
+    )
 
     return (
         <div style={{ paddingLeft: 24 }}>
             <h2 style={{ marginLeft: 16 }}>Datum</h2>
 
             <div style={{ display: "flex", flexDirection: "row" }}>
-                <Date placeholder="von" value={startDate} setValue={setStartDate} />
+                <Date placeholder="von" value={startDate} setValue={setStartDate} disabled={!enabled} />
                 <div style={{ width: 64 }} />
-                <Date placeholder="bis" value={endDate} setValue={setEndDate} />
+                <Date placeholder="bis" value={endDate} setValue={setEndDate} disabled={!enabled} />
             </div>
 
             <h2 style={{ marginLeft: 16 }}>Schadenshöhe</h2>
@@ -36,6 +42,7 @@ const ControlPanel = ({
                     defaultValue={minDamage}
                     decimalsLimit={0}
                     prefix="€"
+                    disabled={!enabled}
                     onValueChange={(value, _) => {
                         setMinDamage(value)
                     }}
@@ -47,6 +54,7 @@ const ControlPanel = ({
                     defaultValue={maxDamage}
                     decimalsLimit={0}
                     prefix="€"
+                    disabled={!enabled}
                     onValueChange={(value, _) => {
                         setMaxDamage(value)
                     }}
@@ -58,6 +66,7 @@ const ControlPanel = ({
                 <Checkbox
                     label="Lastenfahrrad"
                     isChecked={chosenBikes.lastenfahrrad}
+                    disabled={!enabled}
                     setChecked={() => {
                         setChosenBikes({ ...chosenBikes, ...{ lastenfahrrad: !chosenBikes.lastenfahrrad } })
                     }}
@@ -66,6 +75,7 @@ const ControlPanel = ({
                 <Checkbox
                     label="Kinderfahrrad"
                     isChecked={chosenBikes.kinderfahrrad}
+                    disabled={!enabled}
                     setChecked={() => {
                         setChosenBikes({ ...chosenBikes, ...{ kinderfahrrad: !chosenBikes.kinderfahrrad } })
                     }}
@@ -75,6 +85,7 @@ const ControlPanel = ({
                 <Checkbox
                     label="Damenfahrrad"
                     isChecked={chosenBikes.damenfahrrad}
+                    disabled={!enabled}
                     setChecked={() => {
                         setChosenBikes({ ...chosenBikes, ...{ damenfahrrad: !chosenBikes.damenfahrrad } })
                     }}
@@ -83,6 +94,7 @@ const ControlPanel = ({
                 <Checkbox
                     label="Mountainbike"
                     isChecked={chosenBikes.mountainbike}
+                    disabled={!enabled}
                     setChecked={() => {
                         setChosenBikes({ ...chosenBikes, ...{ mountainbike: !chosenBikes.mountainbike } })
                     }}
@@ -92,6 +104,7 @@ const ControlPanel = ({
                 <Checkbox
                     label="Herrenfahrrad"
                     isChecked={chosenBikes.herrenfahrrad}
+                    disabled={!enabled}
                     setChecked={() => {
                         setChosenBikes({ ...chosenBikes, ...{ herrenfahrrad: !chosenBikes.herrenfahrrad } })
                     }}
@@ -100,6 +113,7 @@ const ControlPanel = ({
                 <Checkbox
                     label="Rennrad"
                     isChecked={chosenBikes.rennrad}
+                    disabled={!enabled}
                     setChecked={() => {
                         setChosenBikes({ ...chosenBikes, ...{ rennrad: !chosenBikes.rennrad } })
                     }}
@@ -109,6 +123,7 @@ const ControlPanel = ({
                 <Checkbox
                     label="Fahrrad (?)"
                     isChecked={chosenBikes.fahrrad}
+                    disabled={!enabled}
                     setChecked={() => {
                         setChosenBikes({ ...chosenBikes, ...{ fahrrad: !chosenBikes.fahrrad } })
                     }}
@@ -117,6 +132,7 @@ const ControlPanel = ({
                 <Checkbox
                     label="Sonstiges"
                     isChecked={chosenBikes.sonstiges}
+                    disabled={!enabled}
                     setChecked={() => {
                         setChosenBikes({ ...chosenBikes, ...{ sonstiges: !chosenBikes.sonstiges } })
                     }}
