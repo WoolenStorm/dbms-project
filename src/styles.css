@@ -65,7 +65,8 @@
   }
 
    .checkboxContainer:hover {
-    background-color: #FEDEC8;
+    /* background-color: #FEDEC8; */
+    background-color: #E1E1E1;
     box-shadow: 0 0 11px #36FCC0;  
    }
 
