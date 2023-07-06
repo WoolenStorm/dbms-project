@@ -9,18 +9,14 @@ const ControlPanel = ({
     setStartDate, setEndDate,
     minDamage, maxDamage,
     setMinDamage, setMaxDamage,
-    setTheftsToShowMap,
-    filterTheftsMap,
-    setTheftsToShowPieChart,
-    filterTheftsPieChart,
-    enabled
+    setTheftsToShow,
+    filterThefts,
+    enabled,
 }) => {
 
-    useEffect(() => {
-        setTheftsToShowMap(filterTheftsMap(chosenBikes, startDate, endDate, minDamage, maxDamage))
-        setTheftsToShowPieChart(filterTheftsPieChart(chosenBikes, startDate, endDate, minDamage, maxDamage))
-    }, [chosenBikes, startDate, endDate, minDamage, maxDamage,
-        filterTheftsMap, setTheftsToShowMap, filterTheftsPieChart, setTheftsToShowPieChart]
+    useEffect(
+        () => setTheftsToShow(filterThefts(chosenBikes, startDate, endDate, minDamage, maxDamage)),
+        [chosenBikes, startDate, endDate, minDamage, maxDamage, filterThefts, setTheftsToShow]
     )
 
     return (

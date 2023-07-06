@@ -4,19 +4,26 @@ import ChartDataLabels from "chartjs-plugin-datalabels"
 
 Chart.register(ArcElement, Tooltip, Legend, ChartDataLabels)
 
-const PieChartDiagram = ({ theftsToShowPieChart }) => {
+const PieChartDiagram = ({ theftsToShow }) => {
+
+    const amountByType = new Map()
+    theftsToShow.forEach((theft) => {
+        amountByType.set(
+            theft.bikeType.toLowerCase(),
+            amountByType.has(theft.bikeType.toLowerCase()) ? amountByType.get(theft.bikeType.toLowerCase()) + 1 : 0)
+    })
     const labels = []
     const values = []
 
-    if (theftsToShowPieChart === null || theftsToShowPieChart.size === 0) return <div className="PieChart"></div>
-    else {
-        theftsToShowPieChart.forEach((value, key) => {
+    if (amountByType.size > 0) {
+        amountByType.forEach((value, key) => {
             labels.push(key)
             values.push(value)
         })
     }
+    else return <></>
 
-    console.log(theftsToShowPieChart)
+    console.log(amountByType)
 
     const options = {
         plugins: {
@@ -39,25 +46,25 @@ const PieChartDiagram = ({ theftsToShowPieChart }) => {
                 label: "gestohlen",
                 data: values,
                 backgroundColor: [
-                    "rgba(0, 63, 92, 0.8)",
-                    'rgba(47, 75, 124, 0.8)',
-                    'rgba(102, 81, 145, 0.8)',
-                    'rgba(160, 81, 149, 0.8)',
-                    'rgba(212, 80, 135, 0.8)',
-                    'rgba(249, 93, 106, 0.8)',
                     "rgba(251, 122, 66, 0.8)",
-                    "rgba(252, 164, 0, 0.8)"
+                    'rgba(63, 182, 255, 0.8)',
+                    'rgba(78, 233, 143, 0.8)',
+                    'rgba(230, 255, 0, 0.8)',
+                    'rgba(154, 24, 245, 0.8)',
+                    'rgba(248, 162, 4, 0.8)',
+                    "rgba(219, 9, 181, 0.8)",
+                    "rgba(179, 212, 255, 0.8)"
 
                 ],
                 borderColor: [
-                    "rgba(0, 63, 92, 1)",
-                    'rgba(47, 75, 124, 1)',
-                    'rgba(102, 81, 145, 1)',
-                    'rgba(160, 81, 149, 1)',
-                    'rgba(212, 80, 135, 1)',
-                    'rgba(249, 93, 106, 1)',
                     "rgba(251, 122, 66, 1)",
-                    "rgba(252, 164, 0, 1)"
+                    'rgba(63, 182, 255, 1)',
+                    'rgba(78, 233, 143, 1)',
+                    'rgba(230, 255, 0, 1)',
+                    'rgba(154, 24, 245, 1)',
+                    'rgba(248, 162, 4, 1)',
+                    "rgba(219, 9, 181, 1)",
+                    "rgba(179, 212, 255, 1)"
                 ],
                 borderWidth: 1
             }
