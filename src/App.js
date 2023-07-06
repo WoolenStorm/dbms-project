@@ -8,6 +8,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { RotatingLines } from "react-loader-spinner";
 import PieChartDiagram from "./components/PieChartDiagram";
+import LineChartByDate from "./components/LineChartByDate";
 
 const apiUrl = "https://oberon.yangnet.de/api/BicycleTheft/"
 
@@ -52,6 +53,12 @@ export default function App() {
     [theftsToShow]
   )
 
+  const LineChart = useMemo(
+    () => {
+      if (theftsToShow === null || theftsToShow.size === 0) return <></>
+      else return <LineChartByDate theftsToShow={theftsToShow} />
+    }, [theftsToShow])
+
   return (
     <div className="App">
       <div className="leftColumn">
@@ -62,7 +69,10 @@ export default function App() {
           <div className="loadingSpinnerContainer" >
             <RotatingLines width="280" strokeColor="#36FCC0" animationDuration="0.85" strokeWidth="5" />
           </div>}
-        {PieChart}
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          {PieChart}
+          {LineChart}
+        </div>
       </div>
       <div className="rightColumn">
         <ControlPanel

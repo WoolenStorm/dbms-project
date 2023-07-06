@@ -20,7 +20,7 @@
    .checkboxContainer {
     transition: box-shadow .3s;
     display: flex;
-    width: 200px;
+    width: 264px;
     height: 40px;
     background-color: #3B3955;
     padding: 8px;
@@ -90,6 +90,13 @@
     width: 80%
   }
 
+  .switchContainer {
+    position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  }
+
   .datePicker fieldset.MuiOutlinedInput-notchedOutline {
     border-color: #E7E4ED;
   }
@@ -136,7 +143,7 @@
 .disabled {
   transition: box-shadow .3s;
     display: flex;
-    width: 200px;
+    width: 264px;
     height: 40px;
     background-color: #888888;
     padding: 8px;
@@ -158,6 +165,23 @@
   background-color: #2A263E;
   border-radius: 15px;
   width: 300px;
+  height: 300px;
+  margin: 8px;
+  padding: 8px;
+  color: #36FCC0;
+
+  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+     -moz-animation: fadein 2s; /* Firefox < 16 */
+      -ms-animation: fadein 2s; /* Internet Explorer */
+       -o-animation: fadein 2s; /* Opera < 12.1 */
+          animation: fadein 2s;
+}
+
+.lineChart {
+  /* background-color: #FEDEC8; */
+  background-color: #2A263E;
+  border-radius: 15px;
+  width: 600px;
   height: 300px;
   margin: 8px;
   padding: 8px;
