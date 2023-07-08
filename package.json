@@ -26,7 +26,6 @@
     "react-leaflet": "^4.2.1",
     "react-loader-spinner": "^5.3.4",
     "react-scripts": "5.0.1",
-    "react-styled-toggle": "^1.0.18",
     "styled-components": "^5.3.11",
     "web-vitals": "^2.1.4"
   },

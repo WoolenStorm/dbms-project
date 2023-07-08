@@ -69,7 +69,7 @@ export default function App() {
           <div className="loadingSpinnerContainer" >
             <RotatingLines width="280" strokeColor="#36FCC0" animationDuration="0.85" strokeWidth="5" />
           </div>}
-        <div style={{ display: "flex", flexDirection: "row" }}>
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
           {PieChart}
           {LineChart}
         </div>
@@ -90,6 +90,11 @@ export default function App() {
           filterThefts={filterThefts}
           enabled={isFetched}
         />
+        <div className="glitching">
+          <div className="signature">
+            Created by Ihar Brandes, Long Yang Paffrath, Jesse Wollatz FU Berlin SoSe 2023
+          </div>
+        </div>
       </div>
     </div>
   );
