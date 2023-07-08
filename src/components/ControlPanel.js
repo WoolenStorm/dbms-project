@@ -1,8 +1,9 @@
 import CurrencyInput from "react-currency-input-field";
-import Date from "./Date"
+import DateComponent from "./DateComponent"
 import Checkbox from "./Checkbox";
 import { useEffect, useState } from "react";
-import Toggle from "react-styled-toggle";
+import ToggleSwitch from "./ToggleSwitch";
+import dayjs from "dayjs";
 
 const ControlPanel = ({
     chosenBikes, setChosenBikes,
@@ -15,71 +16,82 @@ const ControlPanel = ({
     enabled,
 }) => {
 
-    useEffect(
-        () => setTheftsToShow(filterThefts(chosenBikes, startDate, endDate, minDamage, maxDamage)),
-        [chosenBikes, startDate, endDate, minDamage, maxDamage, filterThefts, setTheftsToShow]
-    )
-
     const [isDateEnabled, setIsDateEnabled] = useState(true)
     const [isDamageEnabled, setIsDamageEnabled] = useState(true)
     const [isTypeEnabled, setIsTypeEnabled] = useState(true)
 
+    useEffect(
+        () => setTheftsToShow(
+            filterThefts(
+                // chosenBikes,
+                isTypeEnabled ? chosenBikes : {
+                    lastenfahrrad: true,
+                    sonstiges: true,
+                    fahrrad: true,
+                    herrenfahrrad: true,
+                    kinderfahrrad: true,
+                    mountainbike: true,
+                    rennrad: true,
+                    damenfahrrad: true
+                },
+                isDateEnabled ? startDate : dayjs("2020-01-01"),
+                isDateEnabled ? endDate : (new Date()).toString(),
+                isDamageEnabled ? minDamage : 0,
+                isDamageEnabled ? maxDamage : 10000)),
+        [chosenBikes, startDate, endDate, minDamage, maxDamage, filterThefts, setTheftsToShow,
+            isDateEnabled, isDamageEnabled, isTypeEnabled]
+    )
+
     return (
-        <div style={{ paddingLeft: 24 }}>
+        <div style={{ paddingLeft: "1vw" }}>
 
             <div style={{ display: "flex", flexDirection: "row", position: "relative" }}>
 
                 <div className="switchContainer">
-                    <Toggle checked={isDateEnabled} onChange={() => setIsDateEnabled(!isDateEnabled)}
-                        width={53} height={25} sliderWidth={20} sliderHeight={20}
-                        backgroundColorChecked="#49967F" backgroundColorUnchecked="#3B3955" backgroundColorButton="#36FCC0"
-                    />
+                    <ToggleSwitch isChecked={isDateEnabled} onToggle={() => setIsDateEnabled(!isDateEnabled)} />
                 </div>
 
-                <h2 style={{ marginLeft: 64 }}>Datum</h2>
+                <h2 style={{ marginLeft: "3vw" }}>Datum</h2>
             </div>
 
 
             <div style={{ display: "flex", flexDirection: "row" }}>
-                <Date placeholder="von" value={startDate} setValue={setStartDate} disabled={!enabled || !isDateEnabled} />
-                <div style={{ width: 64 }} />
-                <Date placeholder="bis" value={endDate} setValue={setEndDate} disabled={!enabled || !isDateEnabled} />
+                <DateComponent placeholder="von" value={startDate} setValue={setStartDate} disabled={!enabled || !isDateEnabled} />
+                <div style={{ width: "3vw" }} />
+                <DateComponent placeholder="bis" value={endDate} setValue={setEndDate} disabled={!enabled || !isDateEnabled} />
             </div>
 
             <div style={{ display: "flex", flexDirection: "row", position: "relative" }}>
 
                 <div className="switchContainer">
-                    <Toggle
-                        checked={isDamageEnabled} onChange={() => setIsDamageEnabled(!isDamageEnabled)}
-                        width={53} height={25} sliderWidth={20} sliderHeight={20}
-                        backgroundColorChecked="#49967F" backgroundColorUnchecked="#3B3955" backgroundColorButton="#36FCC0"
-                    />
+                    <ToggleSwitch isChecked={isDamageEnabled} onToggle={() => setIsDamageEnabled(!isDamageEnabled)} />
                 </div>
 
-                <h2 style={{ marginLeft: 64 }}>Schadenshöhe</h2>
+
+                <h2 style={{ marginLeft: "3vw" }}>Schadenshöhe</h2>
             </div>
 
 
 
             <div style={{ display: "flex", flexDirection: "row" }}>
                 <CurrencyInput
-                    className="currencyInput"
+                    className={enabled && isDamageEnabled ? "currencyInput" : "currencyInputDisabled"}
                     placeholder="von"
                     defaultValue={minDamage}
                     decimalsLimit={0}
-                    prefix="€"
+                    prefix=" €"
                     disabled={!enabled || !isDamageEnabled}
                     onValueChange={(value, _) => {
                         setMinDamage(value)
                     }}
                 />
-                <div style={{ width: 64 }} />
+                <div style={{ width: "3vw" }} />
                 <CurrencyInput
-                    className="currencyInput"
+                    className={enabled && isDamageEnabled ? "currencyInput" : "currencyInputDisabled"}
                     placeholder="bis"
                     defaultValue={maxDamage}
                     decimalsLimit={0}
-                    prefix="€"
+                    prefix=" €"
                     disabled={!enabled || !isDamageEnabled}
                     onValueChange={(value, _) => {
                         setMaxDamage(value)
@@ -90,16 +102,12 @@ const ControlPanel = ({
             <div style={{ display: "flex", flexDirection: "row", position: "relative" }}>
 
                 <div className="switchContainer">
-                    <Toggle
-                        checked={isTypeEnabled} onChange={() => setIsTypeEnabled(!isTypeEnabled)}
-                        width={53} height={25} sliderWidth={20} sliderHeight={20}
-                        backgroundColorChecked="#49967F" backgroundColorUnchecked="#3B3955" backgroundColorButton="#36FCC0"
-                    />
+                    <ToggleSwitch isChecked={isTypeEnabled} onToggle={() => setIsTypeEnabled(!isTypeEnabled)} />
                 </div>
 
-                <h2 style={{ marginLeft: 64 }}>Gewählte Gruppen</h2>
+                <h2 style={{ marginLeft: "3vw" }}>Gewählte Gruppen</h2>
             </div>
-            <div style={{ display: "flex", flexDirection: "row", padding: 16 }}>
+            <div style={{ display: "flex", flexDirection: "row", padding: "1vw" }}>
                 <Checkbox
                     label="Lastenfahrrad"
                     isChecked={chosenBikes.lastenfahrrad}
@@ -108,7 +116,7 @@ const ControlPanel = ({
                         setChosenBikes({ ...chosenBikes, ...{ lastenfahrrad: !chosenBikes.lastenfahrrad } })
                     }}
                 />
-                <div style={{ width: 98 }} />
+                <div style={{ width: "5vw" }} />
                 <Checkbox
                     label="Kinderfahrrad"
                     isChecked={chosenBikes.kinderfahrrad}
@@ -127,7 +135,7 @@ const ControlPanel = ({
                         setChosenBikes({ ...chosenBikes, ...{ damenfahrrad: !chosenBikes.damenfahrrad } })
                     }}
                 />
-                <div style={{ width: 98 }} />
+                <div style={{ width: "5vW" }} />
                 <Checkbox
                     label="Mountainbike"
                     isChecked={chosenBikes.mountainbike}
@@ -146,7 +154,7 @@ const ControlPanel = ({
                         setChosenBikes({ ...chosenBikes, ...{ herrenfahrrad: !chosenBikes.herrenfahrrad } })
                     }}
                 />
-                <div style={{ width: 98 }} />
+                <div style={{ width: "5vw" }} />
                 <Checkbox
                     label="Rennrad"
                     isChecked={chosenBikes.rennrad}
@@ -165,7 +173,7 @@ const ControlPanel = ({
                         setChosenBikes({ ...chosenBikes, ...{ fahrrad: !chosenBikes.fahrrad } })
                     }}
                 />
-                <div style={{ width: 98 }} />
+                <div style={{ width: "5vw" }} />
                 <Checkbox
                     label="Sonstiges"
                     isChecked={chosenBikes.sonstiges}
