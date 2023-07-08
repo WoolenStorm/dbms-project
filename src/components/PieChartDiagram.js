@@ -32,6 +32,11 @@ const PieChartDiagram = ({ theftsToShow }) => {
                     color: 'white'
                 }
             },
+            title: {
+                display: true,
+                text: 'Gestohlen gesamt',
+                color: "white"
+            },
             datalabels: {
                 color: "transparent"
             }
