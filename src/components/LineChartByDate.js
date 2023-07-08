@@ -45,62 +45,36 @@ const LineChartByDate = ({ theftsToShow }) => {
 
     if (typesWithDates.size === 0) return <></>
 
-    const options = {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-                labels: {
-                    color: "white"
-                }
-            },
-            title: {
-                display: true,
-                text: 'Chart.js Line Chart',
-                color: "white"
-            },
-            datalabels: {
-                color: "transparent"
-            },
-        },
-        scales: {
-            x: {
-                grid: {
-                    color: 'rgba(59, 57, 85, 1)',
-                    borderColor: 'white'
-                },
-                ticks: {
-                    color: 'white',
-                    borderColor: 'white'
-                }
-            },
-            y: {
-                grid: {
-                    color: 'rgba(59, 57, 85, 1)',
-                    borderColor: 'white'
-                },
-                ticks: {
-                    color: 'white',
-                    borderColor: 'white'
-                }
-            }
-        }
-    };
-
     const maps = [...typesWithDates.values()]
+    console.log("maps")
+    console.log(maps)
+    console.log(maps.sort())
     console.log(maps[0] ? [...maps[0].keys()] : "null....")
 
     let colorIndex = -1
 
     const datasets = []
+    const dates = []
 
     typesWithDates.forEach((value, key) => {
         colorIndex++
         const amountByDate = value
 
+        console.log("entries")
+        console.log([...amountByDate.values()])
+        const amountByDateSorted = [...amountByDate.entries()].sort((a, b) => a[0] > b[0])
+        console.log(amountByDateSorted)
+        const amounts = []
+        amountByDateSorted.forEach((pair) => {
+            amounts.push(pair[1])
+            if (!dates.includes(pair[0])) dates.push(pair[0])
+        })
+        console.log(amounts)
+        console.log(dates)
+
         datasets.push({
             label: key,
-            data: [...amountByDate.values()],
+            data: amounts,
             borderColor: colors[colorIndex],
             backgroundColor: colors[colorIndex]
         })
@@ -108,14 +82,17 @@ const LineChartByDate = ({ theftsToShow }) => {
     // {
 
     console.log(datasets)
+    datasets.sort((a, b) => a.label > b.label)
+    console.log(datasets)
 
     const data = {
-        labels: maps[0] ? [...maps[0].keys()] : ["default label"],
+        labels: dates.size !== 0 ? dates : ["default label"],
         datasets: datasets
     };
 
     return <div className="lineChart"><Line options={options} data={data} /></div>
 }
+
 
 const colors = [
     "rgba(251, 122, 66, 0.8)",
@@ -127,5 +104,47 @@ const colors = [
     "rgba(219, 9, 181, 0.8)",
     "rgba(179, 212, 255, 0.8)"
 ]
+
+const options = {
+    responsive: true,
+    plugins: {
+        legend: {
+            position: 'top',
+            labels: {
+                color: "white"
+            }
+        },
+        title: {
+            display: true,
+            text: 'Gestohlen nach Monat',
+            color: "white"
+        },
+        datalabels: {
+            color: "transparent"
+        },
+    },
+    scales: {
+        x: {
+            grid: {
+                color: 'rgba(59, 57, 85, 1)',
+                borderColor: 'white'
+            },
+            ticks: {
+                color: 'white',
+                borderColor: 'white'
+            }
+        },
+        y: {
+            grid: {
+                color: 'rgba(59, 57, 85, 1)',
+                borderColor: 'white'
+            },
+            ticks: {
+                color: 'white',
+                borderColor: 'white'
+            }
+        }
+    }
+};
 
 export default LineChartByDate
