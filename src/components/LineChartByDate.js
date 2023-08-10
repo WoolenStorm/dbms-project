@@ -27,8 +27,8 @@ const LineChartByDate = ({ theftsToShow }) => {
     const typesWithDates = new Map()
 
     theftsToShow.forEach((theft) => {
-        const type = theft.bikeType
-        const date = theft.theftStart.slice(0, 7)
+        const type = theft.biketype
+        const date = theft.theftstart.slice(0, 7)
         if (typesWithDates.has(type)) {
             const amountByDate = typesWithDates.get(type)
             if (amountByDate.has(date)) {
@@ -45,11 +45,6 @@ const LineChartByDate = ({ theftsToShow }) => {
 
     if (typesWithDates.size === 0) return <></>
 
-    const maps = [...typesWithDates.values()]
-    console.log("maps")
-    console.log(maps)
-    console.log(maps.sort())
-    console.log(maps[0] ? [...maps[0].keys()] : "null....")
 
     let colorIndex = -1
 
@@ -58,19 +53,12 @@ const LineChartByDate = ({ theftsToShow }) => {
 
     typesWithDates.forEach((value, key) => {
         colorIndex++
-        const amountByDate = value
-
-        console.log("entries")
-        console.log([...amountByDate.values()])
-        const amountByDateSorted = [...amountByDate.entries()].sort((a, b) => a[0] > b[0])
-        console.log(amountByDateSorted)
+        const amountByDateSorted = [...value.entries()].sort((a, b) => a[0] > b[0])
         const amounts = []
         amountByDateSorted.forEach((pair) => {
             amounts.push(pair[1])
             if (!dates.includes(pair[0])) dates.push(pair[0])
         })
-        console.log(amounts)
-        console.log(dates)
 
         datasets.push({
             label: key,
@@ -79,11 +67,7 @@ const LineChartByDate = ({ theftsToShow }) => {
             backgroundColor: colors[colorIndex]
         })
     })
-    // {
-
-    console.log(datasets)
     datasets.sort((a, b) => a.label > b.label)
-    console.log(datasets)
 
     const data = {
         labels: dates.size !== 0 ? dates : ["default label"],
@@ -148,3 +132,4 @@ const options = {
 };
 
 export default LineChartByDate
+

@@ -10,10 +10,9 @@ import { RotatingLines } from "react-loader-spinner";
 import PieChartDiagram from "./components/PieChartDiagram";
 import LineChartByDate from "./components/LineChartByDate";
 
-const apiUrl = "https://oberon.yangnet.de/api/BicycleTheft/"
+const apiUrl = "http://34.141.115.105:42069/thefts/"
 
 let thefts = []
-
 
 export default function App() {
 
@@ -107,9 +106,12 @@ const fetchData = (setIsFetched) => {
     url: apiUrl
   })
     .then(res => {
-      thefts = res.data
+      thefts = res.data.rows
       console.log(thefts)
       setIsFetched(true)
+    })
+    .catch(err => {
+      console.log(err)
     })
 }
 
@@ -122,11 +124,12 @@ const filterThefts = (chosenBikes, startDate, endDate, minDamage, maxDamage) => 
   types[index] = "diverse fahrräder"
 
   const theftsFiltered = thefts.filter(
-    (object) => types.includes(object.bikeType.toLowerCase())
+    (object) => types.includes(object.biketype.toLowerCase())
       && parseInt(object.damage) <= maxDamage
       && parseInt(object.damage) >= minDamage
-      && (new Date(object.theftStart) >= new Date(startDate))
-      && (new Date(object.theftStart) <= new Date(endDate))
+      && (new Date(object.theftstart) >= new Date(startDate))
+      && (new Date(object.theftstart) <= new Date(endDate))
   )
   return theftsFiltered
 }
+

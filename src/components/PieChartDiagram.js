@@ -9,8 +9,8 @@ const PieChartDiagram = ({ theftsToShow }) => {
     const amountByType = new Map()
     theftsToShow.forEach((theft) => {
         amountByType.set(
-            theft.bikeType.toLowerCase(),
-            amountByType.has(theft.bikeType.toLowerCase()) ? amountByType.get(theft.bikeType.toLowerCase()) + 1 : 0)
+            theft.biketype.toLowerCase(),
+            amountByType.has(theft.biketype.toLowerCase()) ? amountByType.get(theft.biketype.toLowerCase()) + 1 : 0)
     })
     const labels = []
     const values = []
@@ -22,8 +22,6 @@ const PieChartDiagram = ({ theftsToShow }) => {
         })
     }
     else return <></>
-
-    console.log(amountByType)
 
     const options = {
         plugins: {
@@ -41,7 +39,6 @@ const PieChartDiagram = ({ theftsToShow }) => {
                 color: "transparent"
             }
         }
-
     }
 
     const data = {
@@ -86,3 +83,4 @@ const PieChartDiagram = ({ theftsToShow }) => {
 }
 
 export default PieChartDiagram
+

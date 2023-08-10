@@ -52,3 +52,4 @@ export default function MapComponent({ theftsToShow }) {        // [latitude, lo
 
     return <div id="map" style={{ height: "60vh" }}></div>
 }
+

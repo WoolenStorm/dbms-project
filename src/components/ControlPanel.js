@@ -23,7 +23,6 @@ const ControlPanel = ({
     useEffect(
         () => setTheftsToShow(
             filterThefts(
-                // chosenBikes,
                 isTypeEnabled ? chosenBikes : {
                     lastenfahrrad: true,
                     sonstiges: true,
@@ -188,3 +187,4 @@ const ControlPanel = ({
 }
 
 export default ControlPanel
+
