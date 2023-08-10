@@ -10,7 +10,7 @@ import { RotatingLines } from "react-loader-spinner";
 import PieChartDiagram from "./components/PieChartDiagram";
 import LineChartByDate from "./components/LineChartByDate";
 
-const apiUrl = "http://34.141.115.105:42069/thefts/"
+const apiUrl = "https://34.141.115.105:42069/thefts/"
 
 let thefts = []
 
@@ -106,7 +106,7 @@ const fetchData = (setIsFetched) => {
     url: apiUrl
   })
     .then(res => {
-      thefts = res.data.rows
+      thefts = res.data
       console.log(thefts)
       setIsFetched(true)
     })
