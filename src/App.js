@@ -10,13 +10,14 @@ import { RotatingLines } from "react-loader-spinner";
 import PieChartDiagram from "./components/PieChartDiagram";
 import LineChartByDate from "./components/LineChartByDate";
 
-const apiUrl = "https://34.141.115.105:42069/thefts/"
+const apiUrl = "https://uj11w15qwc.execute-api.eu-north-1.amazonaws.com/test/theftspy"
 
 let thefts = []
 
 export default function App() {
 
   useEffect(() => {
+    console.log("useEffect")
     fetchData(setIsFetched)
   }, [])
 
@@ -106,9 +107,29 @@ const fetchData = (setIsFetched) => {
     url: apiUrl
   })
     .then(res => {
-      thefts = res.data
-      console.log(thefts)
       setIsFetched(true)
+      let result = []
+
+      const dateStartIndex = 1 
+      const lorIndex = 5
+      const damageIndex = 6 
+      const typeIndex = 8 
+      const lines = res.data.split("\n")
+
+      lines.forEach(line => {
+        const values = line.split(",")
+        if (values[dateStartIndex] !== undefined) {
+          const theft = {
+            theftstart: `${values[dateStartIndex].slice(6, 10)}-${values[dateStartIndex].slice(3, 5)}-${values[dateStartIndex].slice(0, 2)}`,
+            lor: values[lorIndex],
+            damage: values[damageIndex],
+            biketype: values[typeIndex],
+          }
+        thefts.push(theft)
+        }
+      })
+      thefts = thefts.slice(1, result.length - 1)
+      console.log(thefts)
     })
     .catch(err => {
       console.log(err)
@@ -130,6 +151,8 @@ const filterThefts = (chosenBikes, startDate, endDate, minDamage, maxDamage) => 
       && (new Date(object.theftstart) >= new Date(startDate))
       && (new Date(object.theftstart) <= new Date(endDate))
   )
+  console.log(new Date("2023-05-11"))
+  console.log(theftsFiltered)
   return theftsFiltered
 }
 
