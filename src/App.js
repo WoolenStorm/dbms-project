@@ -17,7 +17,6 @@ let thefts = []
 export default function App() {
 
   useEffect(() => {
-    console.log("useEffect")
     fetchData(setIsFetched)
   }, [])
 
@@ -151,8 +150,6 @@ const filterThefts = (chosenBikes, startDate, endDate, minDamage, maxDamage) => 
       && (new Date(object.theftstart) >= new Date(startDate))
       && (new Date(object.theftstart) <= new Date(endDate))
   )
-  console.log(new Date("2023-05-11"))
-  console.log(theftsFiltered)
   return theftsFiltered
 }
 
